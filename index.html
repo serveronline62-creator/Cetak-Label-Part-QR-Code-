@@ -29,8 +29,8 @@
                             blue: '#2563eb',    
                             yellow: '#eab308'   
                         },
-                        ink: '#111827',
-                        muted: '#6b7280'
+                        ink: '#000000',
+                        muted: '#000000'
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -56,7 +56,7 @@
             font-family: 'Inter', sans-serif;
             background-color: #e5e7eb; 
             min-height: 100vh;
-            color: #111827;
+            color: #000000;
             position: relative;
             overflow-x: hidden;
         }
@@ -74,7 +74,7 @@
             position: relative;
             border-radius: 2px;
             overflow: hidden;
-            border: 1px solid #d1d5db;
+            border: 1px solid #000000;
         }
         
         /* Garis merah tebal di atas kertas */
@@ -91,10 +91,10 @@
             height: 100%;
         }
 
-        /* BORDER TABEL DIPER TEBAL (2px) */
+        /* BORDER TABEL HITAM PEKAT */
         .label-card {
-            border: 2px solid #9ca3af; 
-            border-radius: 2px;
+            border: 2px solid #000000; 
+            border-radius: 0;
             width: 100%;
             height: 100%;
             position: relative;
@@ -106,7 +106,7 @@
         
         .label-card:hover {
             background: #f9fafb;
-            border-color: #4b5563; 
+            border-color: #000000; 
         }
 
         .label-content { display: flex; width: 100%; height: 100%; align-items: center; padding: 1mm; }
@@ -117,19 +117,42 @@
             flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
             background: #fff; 
-            border: 1.5px solid #9ca3af; 
+            border: 1.5px solid #000000; 
             padding: 0.5mm;
         }
         
         .qr-section img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* GARIS PEMISAH TENGAH DIPER TEBAL (2px) */
+        /* GARIS PEMISAH TENGAH HITAM PEKAT */
         .text-section {
             flex-grow: 1; padding: 0 2mm;
             display: flex; flex-direction: column; justify-content: center;
-            border-left: 2px solid #9ca3af; 
+            border-left: 2px solid #000000; 
             margin-left: 1.5mm; height: 100%;
             overflow: hidden; white-space: nowrap;
+        }
+        
+        /* TEKS HITAM PEKAT */
+        .part-text {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: 11px;
+            color: #000000;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            line-height: 1.1;
+        }
+        .desc-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 6.5px;
+            color: #000000;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-top: 2px;
+            line-height: 1.1;
         }
         
         /* UPLOAD ZONE */
@@ -167,7 +190,7 @@
 </head>
 <body class="flex flex-col items-center p-4 md:p-8 relative">
     
-    <!-- HEADER GELAP SEPERTI POLYTRON -->
+    <!-- HEADER GELAP -->
     <header class="no-print w-full max-w-5xl mb-6 relative z-10">
         <div class="bg-brand-dark rounded-t-md px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-4 border-b-4 border-brand-red">
             <div class="flex items-center gap-4">
@@ -188,12 +211,11 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT CONTAINER -->
+    <!-- MAIN CONTENT -->
     <main class="w-full max-w-5xl flex flex-col items-center">
         
         <!-- CONTROL SECTION -->
         <section class="no-print w-full mb-6 relative z-10">
-            <!-- Bagian Judul (Tombol Panduan & Bantuan dihapus) -->
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-4">
                 <div>
                     <h2 class="text-2xl font-bold text-gray-800">Cetak Label Sparepart</h2>
@@ -235,7 +257,7 @@
             </div>
         </section>
         
-        <!-- PREVIEW AREA (KERTAS A4) -->
+        <!-- PREVIEW AREA -->
         <div class="relative z-10 w-full flex justify-center overflow-auto pb-12">
             <div class="a4-paper">
                 <div class="labels-container" id="labels-container-1">
@@ -368,8 +390,8 @@
                 <div class="label-content">
                     <div class="qr-section"><img src="${generateQRDataURL(item.part, 3)}" alt="QR"></div>
                     <div class="text-section">
-                        <div class="font-mono font-bold text-[11px] text-gray-800 truncate leading-tight">${escapeHtml(item.part)}</div>
-                        <div class="text-[6.5px] text-gray-500 font-medium truncate mt-0.5 leading-tight">${escapeHtml(item.desc)}</div>
+                        <div class="part-text">${escapeHtml(item.part)}</div>
+                        <div class="desc-text">${escapeHtml(item.desc)}</div>
                     </div>
                 </div>`;
             container.appendChild(el);
@@ -410,12 +432,12 @@
                 const x = cfg.marginX + (colIdx * (labelW + cfg.gapX));
                 const y = cfg.marginY + (rowIdx * (labelH + cfg.gapY));
                 
-                // Garis Tabel PDF Dipertebal (0.3mm)
-                doc.setDrawColor(100, 100, 100); 
+                // === BORDER TABEL HITAM PEKAT ===
+                doc.setDrawColor(0, 0, 0); 
                 doc.setLineWidth(0.3);
                 doc.rect(x, y, labelW, labelH);
                 
-                // QR Code
+                // === QR CODE HITAM PEKAT ===
                 const qr = qrcode(0, 'L');
                 qr.addData(item.part);
                 qr.make();
@@ -425,7 +447,7 @@
                 const qrX = x + 1.5;
                 const qrY = y + (labelH - cfg.qrSize) / 2;
                 
-                doc.setFillColor(0, 0, 0);
+                doc.setFillColor(0, 0, 0); // hitam pekat
                 for (let r = 0; r < moduleCount; r++) {
                     for (let c = 0; c < moduleCount; c++) {
                         if (qr.isDark(r, c)) {
@@ -434,21 +456,21 @@
                     }
                 }
                 
-                // Garis Pemisah Tengah Dipertebal (0.2mm)
-                doc.setDrawColor(150, 150, 150);
+                // === GARIS PEMISAH TENGAH HITAM PEKAT ===
+                doc.setDrawColor(0, 0, 0);
                 doc.setLineWidth(0.2);
                 doc.line(x + cfg.qrSize + 2.5, y + 1, x + cfg.qrSize + 2.5, y + labelH - 1);
                 
-                // Teks Part
+                // === TEKS PART HITAM PEKAT ===
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(cfg.fontSizePart); 
-                doc.setTextColor(30, 41, 59);
+                doc.setTextColor(0, 0, 0);
                 doc.text(item.part, x + cfg.qrSize + 4, y + labelH/2 - 0.5);
                 
-                // Teks Deskripsi
+                // === TEKS DESKRIPSI HITAM PEKAT ===
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(cfg.fontSizeDesc); 
-                doc.setTextColor(100, 116, 139);
+                doc.setTextColor(0, 0, 0);
                 doc.text(item.desc.substring(0, 50), x + cfg.qrSize + 4, y + labelH/2 + 2);
                 
                 colIdx++;
