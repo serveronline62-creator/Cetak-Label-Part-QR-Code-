@@ -91,7 +91,7 @@
             height: 100%;
         }
 
-        /* UPDATE: BORDER TABEL DIPER TEBAL (2px) */
+        /* BORDER TABEL DIPER TEBAL (2px) */
         .label-card {
             border: 2px solid #9ca3af; 
             border-radius: 2px;
@@ -106,7 +106,7 @@
         
         .label-card:hover {
             background: #f9fafb;
-            border-color: #4b5563; /* Border makin gelap saat di-hover */
+            border-color: #4b5563; 
         }
 
         .label-content { display: flex; width: 100%; height: 100%; align-items: center; padding: 1mm; }
@@ -117,13 +117,13 @@
             flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
             background: #fff; 
-            border: 1.5px solid #9ca3af; /* UPDATE: Border QR Dipertebal */
+            border: 1.5px solid #9ca3af; 
             padding: 0.5mm;
         }
         
         .qr-section img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* UPDATE: GARIS PEMISAH TENGAH DIPER TEBAL (2px) */
+        /* GARIS PEMISAH TENGAH DIPER TEBAL (2px) */
         .text-section {
             flex-grow: 1; padding: 0 2mm;
             display: flex; flex-direction: column; justify-content: center;
@@ -193,19 +193,11 @@
         
         <!-- CONTROL SECTION -->
         <section class="no-print w-full mb-6 relative z-10">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-4">
+            <!-- Bagian Judul (Tombol Panduan & Bantuan dihapus) -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-4">
                 <div>
                     <h2 class="text-2xl font-bold text-gray-800">Cetak Label Sparepart</h2>
                     <p class="text-sm text-gray-500 mt-1">Upload data untuk menghasilkan label QR Code</p>
-                </div>
-                
-                <div class="flex gap-2 mt-4 md:mt-0">
-                    <button class="px-4 py-2 bg-brand-yellow text-gray-900 text-sm font-semibold rounded shadow-sm hover:bg-yellow-500 transition">
-                        Panduan
-                    </button>
-                    <button class="px-4 py-2 bg-brand-blue text-white text-sm font-semibold rounded shadow-sm hover:bg-blue-700 transition">
-                        Bantuan
-                    </button>
                 </div>
             </div>
 
@@ -418,8 +410,8 @@
                 const x = cfg.marginX + (colIdx * (labelW + cfg.gapX));
                 const y = cfg.marginY + (rowIdx * (labelH + cfg.gapY));
                 
-                // UPDATE: Garis Tabel PDF Dipertebal (0.3mm)
-                doc.setDrawColor(100, 100, 100); // Warna abu-abu gelap
+                // Garis Tabel PDF Dipertebal (0.3mm)
+                doc.setDrawColor(100, 100, 100); 
                 doc.setLineWidth(0.3);
                 doc.rect(x, y, labelW, labelH);
                 
@@ -442,7 +434,7 @@
                     }
                 }
                 
-                // UPDATE: Garis Pemisah Tengah Dipertebal (0.2mm)
+                // Garis Pemisah Tengah Dipertebal (0.2mm)
                 doc.setDrawColor(150, 150, 150);
                 doc.setLineWidth(0.2);
                 doc.line(x + cfg.qrSize + 2.5, y + 1, x + cfg.qrSize + 2.5, y + labelH - 1);
